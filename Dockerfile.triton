@@ -1,0 +1,11 @@
+# Use the specified base image
+FROM nvcr.io/nvidia/tritonserver:23.10-trtllm-python-py3
+
+# Set the working directory
+WORKDIR /tensorrtllm_backend
+
+# Install the required Python packages
+RUN pip install sentencepiece protobuf
+
+# Command to launch the Triton server
+CMD ["python3", "scripts/launch_triton_server.py", "--world_size=1", "--model_repo=/tensorrtllm_backend/triton_model_repo"]
